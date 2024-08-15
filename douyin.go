@@ -1,24 +1,26 @@
 package douyinlive
 
 import (
-	"github.com/mayiwen315/douyinLive/generated/douyin"
-	"github.com/mayiwen315/douyinLive/global"
-	"github.com/mayiwen315/douyinLive/jssrc"
-	"github.com/mayiwen315/douyinLive/utils"
 	"bytes"
 	"compress/gzip"
 	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/imroc/req/v3"
-	"github.com/spf13/cast"
-	"google.golang.org/protobuf/proto"
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/imroc/req/v3"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
+	"github.com/mayiwen315/douyinLive/global"
+	"github.com/mayiwen315/douyinLive/jssrc"
+	"github.com/mayiwen315/douyinLive/utils"
+	"github.com/spf13/cast"
+	"google.golang.org/protobuf/proto"
 )
 
 // NewDouyinLive 创建一个新的链接
@@ -47,7 +49,8 @@ func NewDouyinLive(liveid string) (*DouyinLive, error) {
 		return nil, err
 	}
 	d.roomid = d.froomid()
-	err = jssrc.LoadGoja("./jssrc/webmssdk.js", d.userAgent)
+	dir, err := os.Getwd()
+	err = jssrc.LoadGoja(dir+"/jssrc/webmssdk.js", d.userAgent)
 	if err != nil {
 		return nil, err
 	}
