@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"DouyinLive/generated/douyin"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
 	"bytes"
 	"compress/gzip"
 	"crypto/md5"

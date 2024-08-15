@@ -1,7 +1,7 @@
 package douyinlive
 
 import (
-	"DouyinLive/generated/douyin"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
 	"compress/gzip"
 	"github.com/gorilla/websocket"
 	"github.com/imroc/req/v3"

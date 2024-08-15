@@ -1,10 +1,10 @@
 package douyinlive
 
 import (
-	"DouyinLive/generated/douyin"
-	"DouyinLive/global"
-	"DouyinLive/jssrc"
-	"DouyinLive/utils"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
+	"github.com/mayiwen315/douyinLive/global"
+	"github.com/mayiwen315/douyinLive/jssrc"
+	"github.com/mayiwen315/douyinLive/utils"
 	"bytes"
 	"compress/gzip"
 	"fmt"

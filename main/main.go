@@ -1,9 +1,9 @@
 package main
 
 import (
-	douyinlive "DouyinLive"
-	"DouyinLive/generated/douyin"
-	"DouyinLive/utils"
+	douyinlive "github.com/mayiwen315/douyinLive"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
+	"github.com/mayiwen315/douyinLive/utils"
 	"encoding/hex"
 	"github.com/gorilla/websocket"
 	"github.com/spf13/pflag"

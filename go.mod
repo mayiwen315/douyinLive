@@ -1,4 +1,4 @@
-module DouyinLive
+module github.com/mayiwen315/douyinLive
 
 go 1.22.5
 
@@ -7,7 +7,6 @@ require (
 	github.com/elliotchance/orderedmap v1.6.0
 	github.com/gorilla/websocket v1.5.1
 	github.com/imroc/req/v3 v3.43.7
-	github.com/jwwsjlm/douyinLive v0.0.0-20240528105744-29b51579a39c
 	github.com/spf13/cast v1.6.0
 	github.com/spf13/pflag v1.0.5
 	google.golang.org/protobuf v1.34.2

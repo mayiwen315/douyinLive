@@ -1,7 +1,7 @@
 package main
 
 import (
-	douyinlive "DouyinLive"
+	douyinlive "github.com/mayiwen315/douyinLive"
 	"bytes"
 	"compress/gzip"
 	"io"
