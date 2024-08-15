@@ -10,7 +10,7 @@ import (
 )
 
 func TestNewDouyinLive(t *testing.T) {
-	d, _ := NewDouyinLive("182550787233")
+	d, _ := NewDouyinLive("182550787233", "../jssrc/webmssdk.js")
 	d.Subscribe(func(eventData *douyin.Message) {
 		// if eventData.Method == WebcastChatMessage {
 		// 	msg := &douyin.ChatMessage{}

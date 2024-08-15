@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"regexp"
 	"strings"
 	"sync"
@@ -24,7 +23,7 @@ import (
 )
 
 // NewDouyinLive 创建一个新的链接
-func NewDouyinLive(liveid string) (*DouyinLive, error) {
+func NewDouyinLive(liveid, path string) (*DouyinLive, error) {
 	var err error
 	ua := utils.RandomUserAgent()
 
@@ -49,8 +48,7 @@ func NewDouyinLive(liveid string) (*DouyinLive, error) {
 		return nil, err
 	}
 	d.roomid = d.froomid()
-	dir, err := os.Getwd()
-	err = jssrc.LoadGoja(dir+"/jssrc/webmssdk.js", d.userAgent)
+	err = jssrc.LoadGoja(path, d.userAgent)
 	if err != nil {
 		return nil, err
 	}
