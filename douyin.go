@@ -389,12 +389,20 @@ func (d *DouyinLive) froomid() string {
 func (d *DouyinLive) regroomid(s string) string {
 	re := regexp.MustCompile(`roomId\\":\\"(\d+)\\"`)
 	match := re.FindStringSubmatch(s)
-	return match[1]
+	if len(match) > 0 {
+		return match[1]
+	} else {
+		return ""
+	}
 }
 
 // regpushid 正则获取pushid
 func (d *DouyinLive) regpushid(s string) string {
 	re := regexp.MustCompile(`user_unique_id\\":\\"(\d+)\\"`)
 	match := re.FindStringSubmatch(s)
-	return match[1]
+	if len(match) > 0 {
+		return match[1]
+	} else {
+		return ""
+	}
 }

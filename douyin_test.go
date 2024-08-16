@@ -1,6 +1,7 @@
 package douyinlive
 
 import (
+	"fmt"
 	"log"
 	"testing"
 
@@ -10,7 +11,10 @@ import (
 )
 
 func TestNewDouyinLive(t *testing.T) {
-	d, _ := NewDouyinLive("182550787233", "../jssrc/webmssdk.js")
+	d, err := NewDouyinLive("182550787233", "./jssrc/webmssdk.js")
+	if err != nil {
+		fmt.Println("err:"+err.Error())
+	}
 	d.Subscribe(func(eventData *douyin.Message) {
 		// if eventData.Method == WebcastChatMessage {
 		// 	msg := &douyin.ChatMessage{}
