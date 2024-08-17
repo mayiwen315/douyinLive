@@ -45,6 +45,9 @@ func TestNewDouyinLive(t *testing.T) {
 		//log.Println("聊天msg", msg.User.Id, msg.User.NickName, msg.Content, string(marshal), msg.String())
 	})
 
+	d.ErrorMsgHandler(func(err error) {
+		log.Println("err", err)
+	})
 	d.Start()
 
 }
