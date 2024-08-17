@@ -167,6 +167,9 @@ func (d *DouyinLive) Start() {
 	}
 	d.isLiveClosed = true
 	defer func() {
+		if r := recover(); r != nil {
+			d.errorHandle(fmt.Errorf("panic: %v", r))
+		}
 		err := d.gzip.Close()
 		if err != nil {
 			log.Println("gzip关闭失败:", err)
