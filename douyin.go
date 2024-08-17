@@ -61,7 +61,6 @@ func (d *DouyinLive) Link() {
 
 func (d *DouyinLive) reconnect(i int) bool {
 	var err error
-	log.Println("尝试重新连接...")
 	for attempt := 0; attempt < i; attempt++ {
 		if d.Conn != nil {
 			err := d.Conn.Close() // 关闭当前连接
@@ -76,7 +75,6 @@ func (d *DouyinLive) reconnect(i int) bool {
 			log.Printf("正在尝试第 %d 次重连...", attempt+1)
 			time.Sleep(5 * time.Second) // 等待5秒后重试
 		} else {
-			log.Println("重连成功")
 			return true // 重连成功，返回true
 		}
 	}
@@ -166,7 +164,6 @@ func (d *DouyinLive) Start() {
 	if err != nil {
 		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\nresponse:%v\n", err, d.roomid, d.ttwid, d.wssurl, response.StatusCode)
 	}
-	log.Println("链接成功")
 	d.isLiveClosed = true
 	defer func() {
 		err := d.gzip.Close()
@@ -381,6 +378,9 @@ func (d *DouyinLive) froomid() string {
 
 	d.roomid = d.regroomid(res.String())
 	d.pushid = d.regpushid(res.String())
+	if len(match) == 0 {
+		return ""
+	}
 	return match[1]
 
 }
