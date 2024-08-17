@@ -162,6 +162,7 @@ func (d *DouyinLive) Start() {
 	var response *http.Response
 	d.Conn, response, err = websocket.DefaultDialer.Dial(d.wssurl, d.headers)
 	if err != nil {
+		d.errorHandle(err)
 		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\nresponse:%v\n", err, d.roomid, d.ttwid, d.wssurl, response.StatusCode)
 	}
 	d.isLiveClosed = true
@@ -241,6 +242,12 @@ func (d *DouyinLive) Start() {
 func (d *DouyinLive) emit(eventData *douyin.Message) {
 	for _, handler := range d.eventHandlers {
 		handler(eventData)
+	}
+}
+
+func (d *DouyinLive) errorHandle(err error) {
+	if err != nil {
+		d.ErrorHandler(err)
 	}
 }
 
@@ -326,6 +333,10 @@ func (d *DouyinLive) ProcessingMessage(response *douyin.Response) {
 // Subscribe 订阅事件
 func (d *DouyinLive) Subscribe(handler EventHandler) {
 	d.eventHandlers = append(d.eventHandlers, handler)
+}
+
+func (d *DouyinLive) ErrorMsgHandler(handler ErrorEventHandler) {
+	d.ErrorHandler = handler
 }
 
 // fttwid 获取ttwid

@@ -1,10 +1,10 @@
 package douyinlive
 
 import (
-	"github.com/mayiwen315/douyinLive/generated/douyin"
 	"compress/gzip"
 	"github.com/gorilla/websocket"
 	"github.com/imroc/req/v3"
+	"github.com/mayiwen315/douyinLive/generated/douyin"
 	"net/http"
 	"sync"
 )
@@ -27,6 +27,8 @@ const (
 )
 
 type EventHandler func(eventData *douyin.Message)
+
+type ErrorEventHandler func(err error)
 type DouyinLive struct {
 	wssurl        string
 	headers       http.Header
@@ -39,6 +41,7 @@ type DouyinLive struct {
 	pushid        string
 	Conn          *websocket.Conn
 	eventHandlers []EventHandler
+	ErrorHandler  func(err error)
 	gzip          *gzip.Reader
 	isLiveClosed  bool
 	buffers       *sync.Pool
