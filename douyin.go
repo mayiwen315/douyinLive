@@ -182,7 +182,7 @@ func (d *DouyinLive) Start() {
 	for d.isLiveClosed {
 		messageType, message, err := d.Conn.ReadMessage()
 		if err != nil {
-			log.Println("读取消息失败-", err, message, messageType," liveurl:", d.liveurl)
+			log.Println("读取消息失败-", err, message, messageType," roomid:", d.roomid)
 			//进行重连
 			if d.reconnect(5) {
 				continue // 如果重连成功，继续监听消息
