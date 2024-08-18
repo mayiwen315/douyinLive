@@ -170,23 +170,27 @@ func (d *DouyinLive) Start() {
 		if r := recover(); r != nil {
 			d.errorHandle(fmt.Errorf("panic: %v", r))
 		}
-		err := d.gzip.Close()
-		if err != nil {
-			log.Println("gzip关闭失败:", err)
-		} else {
-			log.Println("gzip关闭")
+		if d.gzip != nil {
+			err := d.gzip.Close()
+			if err != nil {
+				log.Println("gzip关闭失败:", err)
+			} else {
+				log.Println("gzip关闭")
+			}
 		}
-		err = d.Conn.Close()
-		if err != nil {
-			log.Println("关闭ws链接失败", err)
-		} else {
-			log.Println("抖音ws链接关闭")
+		if d.Conn != nil {
+			err = d.Conn.Close()
+			if err != nil {
+				log.Println("关闭ws链接失败", err)
+			} else {
+				log.Println("抖音ws链接关闭")
+			}
 		}
 	}()
 	for d.isLiveClosed {
 		messageType, message, err := d.Conn.ReadMessage()
 		if err != nil {
-			log.Println("读取消息失败-", err, message, messageType," liveid:", d.liveid)
+			log.Println("读取消息失败-", err, message, messageType, " liveid:", d.liveid)
 			//进行重连
 			if d.reconnect(5) {
 				continue // 如果重连成功，继续监听消息
