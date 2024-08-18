@@ -163,7 +163,10 @@ func (d *DouyinLive) Start() {
 	d.Conn, response, err = websocket.DefaultDialer.Dial(d.wssurl, d.headers)
 	if err != nil {
 		d.errorHandle(err)
-		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\nresponse:%v\n", err, d.roomid, d.ttwid, d.wssurl, response.StatusCode)
+		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\n", err, d.roomid, d.ttwid, d.wssurl)
+		if response != nil {
+			log.Println("response:", response.Status)
+		}
 	}
 	d.isLiveClosed = true
 	defer func() {
