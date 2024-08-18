@@ -68,6 +68,7 @@ func (d *DouyinLive) reconnect(i int) bool {
 				log.Printf("关闭连接失败: %v", err)
 			}
 		}
+		d.wssurl = d.StitchUrl()
 		// 重新建立连接
 		d.Conn, _, err = websocket.DefaultDialer.Dial(d.wssurl, d.headers)
 		if err != nil {
