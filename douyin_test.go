@@ -11,7 +11,7 @@ import (
 )
 
 func TestNewDouyinLive(t *testing.T) {
-	d, err := NewDouyinLive("520305235818", "./jssrc/webmssdk.js")
+	d, err := NewDouyinLive("520305235818", "./jssrc/webmssdk.js", "")
 	if err != nil {
 		fmt.Println("err:"+err.Error())
 	}

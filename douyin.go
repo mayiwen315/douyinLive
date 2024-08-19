@@ -23,7 +23,7 @@ import (
 )
 
 // NewDouyinLive 创建一个新的链接
-func NewDouyinLive(liveid, path string) (*DouyinLive, error) {
+func NewDouyinLive(liveid, path, cookie string) (*DouyinLive, error) {
 	var err error
 	ua := utils.RandomUserAgent()
 
@@ -42,6 +42,9 @@ func NewDouyinLive(liveid, path string) (*DouyinLive, error) {
 			New: func() interface{} {
 				return &bytes.Buffer{}
 			}},
+	}
+	if cookie != "" {
+		d.headers.Add("cookie", cookie)
 	}
 	d.ttwid, err = d.fttwid()
 	if err != nil {
@@ -68,7 +71,6 @@ func (d *DouyinLive) reconnect(i int) bool {
 				log.Printf("关闭连接失败: %v", err)
 			}
 		}
-		d.wssurl = d.StitchUrl()
 		// 重新建立连接
 		d.Conn, _, err = websocket.DefaultDialer.Dial(d.wssurl, d.headers)
 		if err != nil {
