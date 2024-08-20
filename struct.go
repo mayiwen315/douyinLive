@@ -22,6 +22,7 @@ const (
 	WebcastRoomStatsMessage   = "WebcastRoomStatsMessage"
 	WebcastRoomMessage        = "WebcastRoomMessage"
 	WebcastRoomRankMessage    = "WebcastRoomRankMessage"
+	WebcastScreenChatMessage  = "WebcastScreenChatMessage"
 
 	Default = "Default"
 )
