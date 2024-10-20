@@ -31,7 +31,7 @@ func NewDouyinLive(liveid, path, cookie string) (*DouyinLive, error) {
 
 	d := &DouyinLive{
 		ttwid:         "",
-		roomid:        "",
+		Roomid:        "",
 		liveid:        liveid,
 		liveurl:       "https://live.douyin.com/",
 		userAgent:     ua,
