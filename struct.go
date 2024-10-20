@@ -35,7 +35,7 @@ type DouyinLive struct {
 	headers       http.Header
 	c             *req.Client
 	ttwid         string
-	roomid        string
+	Roomid        string
 	liveid        string
 	liveurl       string
 	userAgent     string
