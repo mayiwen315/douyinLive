@@ -50,7 +50,7 @@ func NewDouyinLive(liveid, path, cookie string) (*DouyinLive, error) {
 	if err != nil {
 		return nil, err
 	}
-	d.roomid = d.froomid()
+	d.Roomid = d.froomid()
 	err = jssrc.LoadGoja(path, d.userAgent)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (d *DouyinLive) reconnect(i int) bool {
 	return false // 重连失败，返回false
 }
 func (d *DouyinLive) StitchUrl() string {
-	smap := utils.NewOrderedMap(d.roomid, d.pushid)
+	smap := utils.NewOrderedMap(d.Roomid, d.pushid)
 	signaturemd5 := utils.GetxMSStub(smap)
 	signature := global.GetSing(signaturemd5)
 	browserInfo := strings.Split(d.userAgent, "Mozilla")[1]
@@ -96,10 +96,10 @@ func (d *DouyinLive) StitchUrl() string {
 		"=web&cookie_enabled=true&screen_width=1920&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&" +
 		"browser_name=Mozilla&browser_version=" + parsedURL + "&browser_online=true" +
 		"&tz_name=Asia/Shanghai&cursor=d-1_u-1_fh-7383731312643626035_t-1719159695790_r-1&internal_ext" +
-		"=internal_src:dim|wss_push_room_id:" + d.roomid + "|wss_push_did:" + d.pushid + "|first_req_ms:" + cast.ToString(fetchTime) + "|fetch_time:" + cast.ToString(fetchTime) + "|seq:1|wss_info:0-" + cast.ToString(fetchTime) + "-0-0|" +
+		"=internal_src:dim|wss_push_room_id:" + d.Roomid + "|wss_push_did:" + d.pushid + "|first_req_ms:" + cast.ToString(fetchTime) + "|fetch_time:" + cast.ToString(fetchTime) + "|seq:1|wss_info:0-" + cast.ToString(fetchTime) + "-0-0|" +
 		"wrds_v:7382620942951772256&host=https://live.douyin.com&aid=6383&live_id=1&did_rule=3" +
 		"&endpoint=live_pc&support_wrds=1&user_unique_id=" + d.pushid + "&im_path=/webcast/im/fetch/" +
-		"&identity=audience&need_persist_msg_count=15&insert_task_id=&live_reason=&room_id=" + d.roomid + "&heartbeatDuration=0&signature=" + signature
+		"&identity=audience&need_persist_msg_count=15&insert_task_id=&live_reason=&room_id=" + d.Roomid + "&heartbeatDuration=0&signature=" + signature
 }
 func (d *DouyinLive) GzipUnzip(compressedData []byte) ([]byte, error) {
 	//log.Println(compressedData)
@@ -166,7 +166,7 @@ func (d *DouyinLive) Start() {
 	d.Conn, response, err = websocket.DefaultDialer.Dial(d.wssurl, d.headers)
 	if err != nil {
 		d.errorHandle(err)
-		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\n", err, d.roomid, d.ttwid, d.wssurl)
+		log.Printf("链接失败: err:%v\nroomid:%v\n ttwid:%v\nwssurl:----%v\n", err, d.Roomid, d.ttwid, d.wssurl)
 		if response != nil {
 			log.Println("response:", response.Status)
 		}
@@ -379,8 +379,8 @@ func (d *DouyinLive) fttwid() (string, error) {
 
 // froomid 获取room
 func (d *DouyinLive) froomid() string {
-	if d.roomid != "" {
-		return d.roomid
+	if d.Roomid != "" {
+		return d.Roomid
 
 	}
 	t, _ := d.fttwid()
@@ -400,7 +400,7 @@ func (d *DouyinLive) froomid() string {
 	re := regexp.MustCompile(`roomId\\":\\"(\d+)\\"`)
 	match := re.FindStringSubmatch(res.String())
 
-	d.roomid = d.regroomid(res.String())
+	d.Roomid = d.regroomid(res.String())
 	d.pushid = d.regpushid(res.String())
 	if len(match) == 0 {
 		return ""
